@@ -1,29 +1,32 @@
 #include "tree.h"
 
 //PRIMITIVE
-bool empty(tree t) 
-{ 
+bool empty(tree t)
+{
 	return (t == NULL);
 }
 
-tree emptyTree(void) 
-{ 
-	return NULL; 
+tree emptyTree(void)
+{
+	return NULL;
 }
 
 element root(tree t) {
-	if (empty(t)) abort();
+	if (empty(t) == true)
+		return;	/* Non c'Ã¨ valore di ritorno se l'albero Ã¨ vuoto*/
 	else return t->value;
 }
 
 tree left(tree t) {
-	if (empty(t)) return NULL;
-	else return t->left;
+	if (empty(t) == true)
+	 return NULL;
+	return t->left;
 }
 
 tree right(tree t) {
-	if (empty(t)) return NULL;
-	else return t->right;
+	if (empty(t) == true)
+	 return NULL;
+	return t->right;
 }
 
 tree consTree(element e, tree left, tree right)
@@ -39,9 +42,18 @@ void showEl(element a) {		/*Relativa all'elemento;*/
 		printf("%d", a);
 }
 
+int cmp(element a, element b)
+{
+	if(a == b)
+		return 0;
+	if(a < b)
+		return -1;
+	return 1;
+}
+
 //ESPLORAZIONE
 void preOrder(tree t) {
-	if (empty(t) == false) 
+	if (empty(t) == false)
 	{
 		printf("\t");
 		showEl(root(t));
@@ -50,7 +62,7 @@ void preOrder(tree t) {
 	}
 }
 
-void inOrder(tree t) 
+void inOrder(tree t)
 {
 	if (!empty(t)) {
 			inOrder(left(t));
@@ -80,21 +92,26 @@ bool memberTree(element e, tree t) {
 }
 
 
-bool memberTreeOrd(element e, tree t) {
+bool memberTreeOrd(element e, tree t)
+{
 	if (empty(t) == true)
 		return false;
-	if (cmp(e, root(t)) == true)
-		return true;
-	if (e < root(t))
-		return memberTreeOrd(e, left(t));
-	else return memberTreeOrd(e, right(t));
+	switch (cmp(e, root(t)))
+	{
+		case 0:
+			return true;
+		case -1:
+			return memberTreeOrd(e, left(t));
+		case 1:
+			return memberTreeOrd(e, right(t));
+	}
 }
 
-
-
-tree copy(tree t) {
-
-	return consTree(root(t), emptyTree(), emptyTree());
+tree copy(tree t)
+{
+	if (empty(t) == true)
+		return NULL;
+	return consTree(root(t), copy(left(t)), copy(right(t)));
 }
 
 int height(tree t) {
@@ -133,9 +150,9 @@ tree insBinOrdTree(element e, tree t) {
 
 
 tree deleteElement(tree t, element e) {
-	/*-"l" è puntatore alla root dell'albero originale; 
+	/*-"l" ï¿½ puntatore alla root dell'albero originale;
 	  -"next" puntatore all'elemento successivo su cui scorrere;
-	  -"pl" e "pr" i puntatori per memorizzare se la root in questione è
+	  -"pl" e "pr" i puntatori per memorizzare se la root in questione ï¿½
 	  figlia sinistra o destra.*/
 	tree l = t, next;
 	tree pl = NULL, pr = NULL;
@@ -152,22 +169,22 @@ tree deleteElement(tree t, element e) {
 	//printf("\ntrovato %d", root(t));
 
 	if (!empty(t)) {
-		
-		// Il nodo da eliminare è una foglia:
+
+		// Il nodo da eliminare ï¿½ una foglia:
 		if (empty(left(t)) && empty(right(t))) {
 			if (t == l)	// Se e' la root ritorno un albero vuoto;
-				return emptyTree(); 
+				return emptyTree();
 			next = emptyTree();
 		}
-		
+
 		// Il nodo da eliminare ha un solo figlio
-		if (empty(left(t)) && !empty(right(t))) {	//Se è quello destro:
+		if (empty(left(t)) && !empty(right(t))) {	//Se ï¿½ quello destro:
 			// Se e' la root ritorno il figlio
 			if (t == l)
 				return right(t);
 			next = right(t);
 		}
-		if (!empty(left(t)) && empty(right(t))) {	//Se è quello sinistro:
+		if (!empty(left(t)) && empty(right(t))) {	//Se ï¿½ quello sinistro:
 			// Se e' la root ritorno il figlio
 			if (t == l)
 				return left(t);
@@ -190,7 +207,7 @@ tree deleteElement(tree t, element e) {
 			next = right(next);
 		else
 			next = emptyTree();
-		
+
 	}
 	if (!empty(pl))			//Nel caso fosse un figlio sinistro:
 		pl->left = next;
