@@ -114,34 +114,38 @@ tree copy(tree t)
 	return consTree(root(t), copy(left(t)), copy(right(t)));
 }
 
-int height(tree t) {
-	if (t = emptyTree())
+int height(tree t)
+{
+	if (empty(t) == true)
 		return 0;
-	else {
-		int hl = height(left(t)), hr = height(right(t));
-		if (hl > hr) return 1 + hl;
-		else return 1 + hr;
-	}
+	int hl = height(left(t)), hr = height(right(t));
+	if (hl > hr) return 1 + hl;
+	return 1 + hr;
 }
 
-tree insBinOrdTree(element e, tree t) {
+tree insertBinOrdTree(element e, tree t)
+{
 	tree l = t;
 	if (empty(t))
 		return consTree(e, emptyTree(), emptyTree());
 
-	while (!empty(t)) {
-		if (e <= root(t)) {
-			if (empty(left(t))) {
+	while (empty(t) == false)
+	{
+		if (cmp(e, root(t)) == 0 || cmp(e, root(t)) == - 1)			/* e <= root(t)*/
+		{
+			if (empty(left(t)))
+			{
 				t->left = consTree(e, emptyTree(), emptyTree());
 				t = left(t);
 			}
 			t = left(t);
 		}
-		else {
-			if (empty(t->right)) {
+		/*Altrimenti, se e > root(t):*/
+		if (empty(t->right) == true)
+		{
 				t->right = consTree(e, emptyTree(), emptyTree());
 				t = right(t);
-			}
+		}
 			t = right(t);
 		}
 	}
