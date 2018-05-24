@@ -131,7 +131,7 @@ tree insertBinOrdTree(element e, tree t)
 
 	while (empty(t) == false)
 	{
-		if (cmp(e, root(t)) == 0 || cmp(e, root(t)) == - 1)			/* e <= root(t)*/
+		if (cmp(e, root(t)) == 0 || cmp(e, root(t)) == - 1)			/* Se e <= root(t)*/
 		{
 			if (empty(left(t)))
 			{
@@ -152,11 +152,31 @@ tree insertBinOrdTree(element e, tree t)
 	return l;
 }
 
+tree search(element e, tree t)
+{
+	/*"pl" e "pr" i puntatori per memorizzare se la root in questione è
+		figlia sinistra o destra.*/
+	tree pl = NULL, pr = NULL;
 
-tree search_and_destroy(tree t, element e) {
-	/*-"l" � puntatore alla root dell'albero originale;
+	//Cerco l'elemento:
+	while (IsEqual(e, root(t)) == false && empty(t) == false)
+	{
+		if (cmp(e, root(t)) == -1)
+		{
+			pl = t; pr = emptyTree(); t = left(t);
+		}
+		/*Altrimenti, se e > root(t):*/
+		pl = emptyTree(); pr = t; t = right(t);
+	}
+	return t;
+}
+
+
+tree search_and_destroy(element e, tree t)
+{
+	/*-"l" è puntatore alla root dell'albero originale;
 	  -"next" puntatore all'elemento successivo su cui scorrere;
-	  -"pl" e "pr" i puntatori per memorizzare se la root in questione �
+	  -"pl" e "pr" i puntatori per memorizzare se la root in questione è
 	  figlia sinistra o destra.*/
 	tree l = t, next;
 	tree pl = NULL, pr = NULL;
@@ -168,14 +188,13 @@ tree search_and_destroy(tree t, element e) {
 		{
 			pl = t; pr = emptyTree(); t = left(t);
 		}
-		/*Altrimenti:*/
+		/*Altrimenti, se e > root(t):*/
 		pl = emptyTree(); pr = t; t = right(t);
 	}
-	//printf("\ntrovato %d", root(t));
 
-	if (!empty(t)) {
-
-		// Il nodo da eliminare � una foglia:
+	if (empty(t) == false)
+	{
+		// Il nodo da eliminare è una foglia:
 		if (empty(left(t)) && empty(right(t))) {
 			if (t == l)	// Se e' la root ritorno un albero vuoto;
 				return emptyTree();
