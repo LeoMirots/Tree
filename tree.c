@@ -153,7 +153,7 @@ tree insertBinOrdTree(element e, tree t)
 }
 
 
-tree deleteElement(tree t, element e) {
+tree search_and_destroy(tree t, element e) {
 	/*-"l" � puntatore alla root dell'albero originale;
 	  -"next" puntatore all'elemento successivo su cui scorrere;
 	  -"pl" e "pr" i puntatori per memorizzare se la root in questione �
@@ -162,13 +162,14 @@ tree deleteElement(tree t, element e) {
 	tree pl = NULL, pr = NULL;
 
 	//Cerco l'elemento:
-	while (root(t) != e && !empty(t)) {
-		if (e < root(t)) {
+	while (IsEqual(e, root(t)) == false && empty(t) == false)
+	{
+		if (cmp(e, root(t)) == -1)
+		{
 			pl = t; pr = emptyTree(); t = left(t);
 		}
-		else {
-			pl = emptyTree(); pr = t; t = right(t);
-		}
+		/*Altrimenti:*/
+		pl = emptyTree(); pr = t; t = right(t);
 	}
 	//printf("\ntrovato %d", root(t));
 
