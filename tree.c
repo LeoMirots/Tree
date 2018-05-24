@@ -152,12 +152,29 @@ tree insertBinOrdTree(element e, tree t)
 	return l;
 }
 
+bool detect(element e, tree t)
+{
+	if(empty(t) == true)
+		return false;
+	if(IsEqual(e, t) == true)
+		return true;
+	if(detect(e, t->left) == true)
+		return true;
+	if(detect(e, t->right) == true)
+		return true;
+	return false;
+}
+
 tree search(element e, tree t)
 {
 	/*"pl" e "pr" i puntatori per memorizzare se la root in questione è
 		figlia sinistra o destra.*/
 	tree pl = NULL, pr = NULL;
 
+	if(detect(e, t) == false)
+	{
+		return NULL;
+	}
 	//Cerco l'elemento:
 	while (IsEqual(e, root(t)) == false && empty(t) == false)
 	{
