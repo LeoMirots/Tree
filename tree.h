@@ -14,6 +14,10 @@ typedef struct  treeElement {
 
 typedef  node *tree;
 
+
+void showEl(element e);
+bool IsEqual(element a, element b);
+
 //PRIMITIVE
 bool empty(tree t);
 tree emptyTree(void);
@@ -21,7 +25,6 @@ element root(tree t);
 tree left(tree t);
 tree right(tree t);
 tree consTree(element e, tree left, tree right);
-void showEl(char a);
 
 //ESPLORAZIONE
 void preOrder(tree);
@@ -29,11 +32,13 @@ void inOrder(tree);
 void postOrder(tree);
 
 //NOT-PRIMITIVE
-bool memberTree(element e, tree t);
-bool memberTreeOrd(element e, tree t);
+bool detectTreeOrd(element e, tree t);
 tree copy(tree t);
-tree insBinOrdTree(element e, tree t);
-tree deleteElement(tree t, element e);
-
+tree insertBinOrdTree(element e, tree t);
+bool detectTree(element e, tree t);
+tree search(element e, tree t);
+tree search_and_destroy(element e, tree t);
+tree ConstVettAnticipato(int* vett, int* next);
+tree ConstInputAnticipato(void);
 
 #endif // !TREE_H

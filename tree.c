@@ -11,19 +11,20 @@ tree emptyTree(void)
 	return NULL;
 }
 
-element root(tree t) {
-	if (empty(t) == true)
-		return;	/* Non c'è valore di ritorno se l'albero è vuoto*/
-	else return t->value;
+element root(tree t) 
+{	
+	return t->value;
 }
 
-tree left(tree t) {
+tree left(tree t)
+{
 	if (empty(t) == true)
 	 return NULL;
 	return t->left;
 }
 
-tree right(tree t) {
+tree right(tree t) 
+{
 	if (empty(t) == true)
 	 return NULL;
 	return t->right;
@@ -37,9 +38,16 @@ tree consTree(element e, tree left, tree right)
 	return t;
 }
 
-void showEl(element a) {		/*Relativa all'elemento;*/
-	if(a != NULL)
-		printf("%d", a);
+void showEl(element e)		/*Relativa all'elemento;*/
+{		
+	printf("%d", e);
+}
+
+bool IsEqual(element a, element b)
+{
+	if (a == b)
+		return true;
+	return false;
 }
 
 int cmp(element a, element b)
@@ -64,7 +72,7 @@ void preOrder(tree t) {
 
 void inOrder(tree t)
 {
-	if (!empty(t)) {
+	if (empty(t) == false) {
 			inOrder(left(t));
 		printf("\t");
 		showEl(root(t));
@@ -74,7 +82,7 @@ void inOrder(tree t)
 
 
 void postOrder(tree t) {
-	if (!empty(t)) {
+	if (empty(t) == false) {
 			postOrder(left(t));
 			postOrder(right(t));
 		printf("\t");
@@ -83,16 +91,7 @@ void postOrder(tree t) {
 }
 
 //NOT-PRIMITIVE
-bool memberTree(element e, tree t) {
-	if (empty(t) == true)
-		return false;
-	if (cmp(e, root(t) == true))
-		return true;
-	return (memberTree(e, left(t)) || memberTree(e, right(t)));
-}
-
-
-bool memberTreeOrd(element e, tree t)
+bool detectTreeOrd(element e, tree t)
 {
 	if (empty(t) == true)
 		return false;
@@ -101,10 +100,11 @@ bool memberTreeOrd(element e, tree t)
 		case 0:
 			return true;
 		case -1:
-			return memberTreeOrd(e, left(t));
+			return detectTreeOrd(e, left(t));
 		case 1:
-			return memberTreeOrd(e, right(t));
+			return detectTreeOrd(e, right(t));
 	}
+	return false; /*Qui non dovrebbe mai arrivare;*/
 }
 
 tree copy(tree t)
@@ -141,26 +141,26 @@ tree insertBinOrdTree(element e, tree t)
 			t = left(t);
 		}
 		/*Altrimenti, se e > root(t):*/
-		if (empty(t->right) == true)
-		{
+		else 
+			if (empty(t->right) == true)
+			{
 				t->right = consTree(e, emptyTree(), emptyTree());
 				t = right(t);
-		}
+			}
 			t = right(t);
-		}
 	}
 	return l;
 }
 
-bool detect(element e, tree t)
+bool detectTree(element e, tree t)
 {
 	if(empty(t) == true)
 		return false;
-	if(IsEqual(e, t) == true)
+	if(IsEqual(e, root(t)) == true)
 		return true;
-	if(detect(e, t->left) == true)
+	if(detectTree(e, t->left) == true)
 		return true;
-	if(detect(e, t->right) == true)
+	if(detectTree(e, t->right) == true)
 		return true;
 	return false;
 }
@@ -171,7 +171,7 @@ tree search(element e, tree t)
 		figlia sinistra o destra.*/
 	tree pl = NULL, pr = NULL;
 
-	if(detect(e, t) == false)
+	if(detectTree(e, t) == false)
 	{
 		return NULL;
 	}
@@ -183,7 +183,10 @@ tree search(element e, tree t)
 			pl = t; pr = emptyTree(); t = left(t);
 		}
 		/*Altrimenti, se e > root(t):*/
-		pl = emptyTree(); pr = t; t = right(t);
+		else
+		{
+			pl = emptyTree(); pr = t; t = right(t);
+		}
 	}
 	return t;
 }
@@ -191,68 +194,46 @@ tree search(element e, tree t)
 
 tree search_and_destroy(element e, tree t)
 {
-	/*-"l" è puntatore alla root dell'albero originale;
-	  -"next" puntatore all'elemento successivo su cui scorrere;
-	  -"pl" e "pr" i puntatori per memorizzare se la root in questione è
-	  figlia sinistra o destra.*/
-	tree l = t, next;
-	tree pl = NULL, pr = NULL;
+	return NULL;
+}
 
-	//Cerco l'elemento:
-	while (IsEqual(e, root(t)) == false && empty(t) == false)
+tree ConstInputAnticipato(void)
+{
+	element e;
+	element stop = 0;
+
+	printf("Inserisci valore: ");
+	scanf("%i", &e);
+
+	if (isEqual(e, stop))
+		return emptytree();
+	else
 	{
-		if (cmp(e, root(t)) == -1)
-		{
-			pl = t; pr = emptyTree(); t = left(t);
-		}
-		/*Altrimenti, se e > root(t):*/
-		pl = emptyTree(); pr = t; t = right(t);
-	}
+		tree l, r;
+		l = ConstInputAnticipato();
+		r = ConstInputAnticipato();
 
-	if (empty(t) == false)
+		consttree(e, l, r);
+	}
+}
+
+tree ConstVettAnticipato(int* vett, int* next) //IMPORTANTE: passare l'indirizzo di una variabile int next inizializzata a 0. La funzione legge l'albero da vettore preorder
+{
+	element e = vett[*next];
+	element stop = 0;
+
+	if (isEqual(e, stop))
 	{
-		// Il nodo da eliminare è una foglia:
-		if (empty(left(t)) && empty(right(t))) {
-			if (t == l)	// Se e' la root ritorno un albero vuoto;
-				return emptyTree();
-			next = emptyTree();
-		}
-
-		// Il nodo da eliminare ha un solo figlio
-		if (empty(left(t)) && !empty(right(t))) {	//Se � quello destro:
-			// Se e' la root ritorno il figlio
-			if (t == l)
-				return right(t);
-			next = right(t);
-		}
-		if (!empty(left(t)) && empty(right(t))) {	//Se � quello sinistro:
-			// Se e' la root ritorno il figlio
-			if (t == l)
-				return left(t);
-			next = left(t);
-		}
-
-		// Il nodo da eliminare ha due figli
-		pr = t;
-		pl = emptyTree();
-
-		next = right(t);	//Vai a destra;
-		if (!empty(next))
-			while (!empty(left(next))) {	//Scorri fino a trovare l'ultimo;
-				pr = emptyTree();
-				pl = next;
-				next = left(next);	//Scorri lungo la sinistra;
-			}
-		t->value = root(next);
-		if (right(next) != NULL)
-			next = right(next);
-		else
-			next = emptyTree();
-
+		return emptytree();
 	}
-	if (!empty(pl))			//Nel caso fosse un figlio sinistro:
-		pl->left = next;
-	if (!empty(pr))			//Nel caso fosse un figlio destro:
-		pr->right = next;
-	return l;
+	else
+	{
+		tree l, r;
+		(*next)++;
+		l = ConstVettAnticipato(vett, next);
+		(*next)++;
+		r = ConstVettAnticipato(vett, next);
+
+		consttree(e, l, r);
+	}
 }
