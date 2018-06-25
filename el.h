@@ -40,11 +40,18 @@ typedef struct item {
 	struct item *root;
 } node;
 
+typedef struct item2 {
+	element2 value;
+	struct item2 *left, *right;
+	struct item2 *root;
+} node2;
+
 typedef item *list;
 typedef item2 *list2;
 typedef item3 *list3;
 
 typedef node *tree;
+typedef node2 *tree2;
 
 extern void AssignElement(element *dst, element src);	/*Funzione di assegnamento tra 2 elementi, copia l'elemento src nell'elemento puntato da dst;*/
 extern void PrintElement(element e);					/*Funzione di stampa di un elemento, il parametro � l'elemento da stampare;*/
