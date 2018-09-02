@@ -195,9 +195,9 @@ tree Search_and_Destroy(element e, tree t)
 		return t;
 
 	tree pl = emptyTree();		tree pr = emptyTree();		/*Puntatori al padre di t, previous left & previous right;*/
-															/*pl significa che il padre del nodo da eliminare lo ha come figlio sinistro, di conseguenza pr è emptyTree();*/
+															/*pl significa che il padre del nodo da eliminare lo ha come figlio sinistro, di conseguenza pr ï¿½ emptyTree();*/
 
-	while (Empty(t) == false && IsEqual(e, headTree(t)) == false) /*Cerco il nodo da eliminare ricordando di chi è figlio;*/
+	while (Empty(t) == false && IsEqual(e, headTree(t)) == false) /*Cerco il nodo da eliminare ricordando di chi ï¿½ figlio;*/
 	{
 		if (cmp(e, headTree(t)) == -1)
 		{
@@ -210,13 +210,13 @@ tree Search_and_Destroy(element e, tree t)
 		}
 	}
 
-	bool IsRoot = false;									/*Mi dice se il nodo da eliminare è la radice dell'albero;*/
+	bool IsRoot = false;									/*Mi dice se il nodo da eliminare ï¿½ la radice dell'albero;*/
 	if (Empty(pl) == true && Empty(pr) == true)
 		IsRoot = true;
 
-	/*Il nodo da eliminare può essere una foglia, oppure avere 1 o 2 figli, 3 casi in tutto:*/
+	/*Il nodo da eliminare puï¿½ essere una foglia, oppure avere 1 o 2 figli, 3 casi in tutto:*/
 
-	/*Il nodo è una foglia: occorre solo eliminare il nodo;*/
+	/*Il nodo ï¿½ una foglia: occorre solo eliminare il nodo;*/
 	if (Empty(left(t)) == true && Empty(right(t)) == true)
 	{
 		if (IsRoot == true)
@@ -251,7 +251,7 @@ tree Search_and_Destroy(element e, tree t)
 
 		if (Empty(pl) == false)										/*Se il nodo da eliminare era il figlio sinistro del padre:*/
 			pl->left = next;										/*Imposto il figlio sinistro del padre all'indirizzo del figlio del nodo da eliminare;*/
-		else														/*Altrimenti, il nodo da eliminare può essere il figlio destro o la radice dell'albero;*/
+		else														/*Altrimenti, il nodo da eliminare puï¿½ essere il figlio destro o la radice dell'albero;*/
 			if (Empty(pr) == false)									/*Se il nodo da eliminare era il figlio destro del padre:*/
 				pr->right = next;									/*Imposto il figlio destro del padre all'indirizzo del figlio di del nodo da eliminare;*/
 																	/*Altrimenti, il nodo da eliminare non ha padre ed era per forza la radice dell'albero con un solo figlio;*/
@@ -261,8 +261,8 @@ tree Search_and_Destroy(element e, tree t)
 	/*Se il nodo da eliminare ha 2 figli: occorre eliminarlo e sostituirlo con il nodo succ()*/
 	if (Empty(left(t)) == false && Empty(right(t)) == false)
 	{
-		tree x = right(t);						/*x è il puntatore al nodo succ() di t;*/
-		tree pl_x = x;							/*Puntatore al padre di x, se x è la radice pl_x = x il succ() di t;*/
+		tree x = right(t);						/*x ï¿½ il puntatore al nodo succ() di t;*/
+		tree pl_x = x;							/*Puntatore al padre di x, se x ï¿½ la radice pl_x = x il succ() di t;*/
 		while (Empty(left(x)) == false)
 		{
 			pl_x = x;
@@ -386,7 +386,7 @@ tree2 ConsTree2(element2 e, tree2 left2, tree2 right2, tree2 root)
 	tree2 t = malloc(sizeof(node2));
 	AssignElement2(&t->value, e);
 	t->root = t;
-	
+
 	t->left = left2;		t->right = right2;
 	if(Empty2(root) == false)
 		t->root = root;
@@ -422,7 +422,7 @@ bool detectOrdTree2(element2 e, tree2 t)
 	if (Empty2(t) == true)
 		return false;
 	int x = cmp2(e, t->value);
-	
+
 	switch (x)
 	{
 	case 0:
@@ -542,9 +542,9 @@ tree2 Search_and_Destroy2(element2 e, tree2 t)
 		return t;
 
 	tree2 pl = emptyTree2();		tree2 pr = emptyTree2();		/*Puntatori al padre di t, previous left2 & previous right2;*/
-															/*pl significa che il padre del nodo da eliminare lo ha come figlio sinistro, di conseguenza pr è emptyTree2();*/
+															/*pl significa che il padre del nodo da eliminare lo ha come figlio sinistro, di conseguenza pr ï¿½ emptyTree2();*/
 
-	while (Empty2(t) == false && IsEqual2(e, headTree2(t)) == false) /*Cerco il nodo da eliminare ricordando di chi è figlio;*/
+	while (Empty2(t) == false && IsEqual2(e, headTree2(t)) == false) /*Cerco il nodo da eliminare ricordando di chi ï¿½ figlio;*/
 	{
 		if (cmp2(e, headTree2(t)) == -1)
 		{
@@ -556,14 +556,14 @@ tree2 Search_and_Destroy2(element2 e, tree2 t)
 			pl = emptyTree2();	 pr = t;	t = right2(t);
 		}
 	}
-	
-	bool IsRoot = false;									/*Mi dice se il nodo da eliminare è la radice dell'albero;*/
+
+	bool IsRoot = false;									/*Mi dice se il nodo da eliminare ï¿½ la radice dell'albero;*/
 	if (Empty2(pl) == true && Empty2(pr) == true)
 		IsRoot = true;
-	
-	/*Il nodo da eliminare può essere una foglia, oppure avere 1 o 2 figli, 3 casi in tutto:*/
-	
-	/*Il nodo è una foglia: occorre solo eliminare il nodo;*/
+
+	/*Il nodo da eliminare puï¿½ essere una foglia, oppure avere 1 o 2 figli, 3 casi in tutto:*/
+
+	/*Il nodo ï¿½ una foglia: occorre solo eliminare il nodo;*/
 	if (Empty2(left2(t)) == true && Empty2(right2(t)) == true)
 	{
 		if (IsRoot == true)
@@ -580,13 +580,13 @@ tree2 Search_and_Destroy2(element2 e, tree2 t)
 
 	/*Il nodo ha un figlio: occorre sostituire il figlio al nodo da eliminare;*/
 	tree2 next = emptyTree2();		/*Variabile temporanea per tenere traccia del figlio del nodo da eliminare;*/
-	
+
 	if (Empty2(left2(t)) == true && Empty2(right2(t)) == false)			/*Se il nodo da eliminare ha SOLO un figlio destro:*/
 		next = right2(t);											/*Salvo il puntatore dentro "next";*/
 	else															/*Altrimenti:*/
 		if (Empty2(left2(t)) == false && Empty2(right2(t)) == true)		/*Se il nodo ha SOLO un figlio sinistro: */
 			next = left2(t);											/*Salvo il puntatore in next;*/
-	
+
 	if (Empty2(next) == false)
 	{
 		if(IsRoot == true)
@@ -598,7 +598,7 @@ tree2 Search_and_Destroy2(element2 e, tree2 t)
 
 		if (Empty2(pl) == false)										/*Se il nodo da eliminare era il figlio sinistro del padre:*/
 			pl->left = next;										/*Imposto il figlio sinistro del padre all'indirizzo del figlio del nodo da eliminare;*/
-		else														/*Altrimenti, il nodo da eliminare può essere il figlio destro o la radice dell'albero;*/
+		else														/*Altrimenti, il nodo da eliminare puï¿½ essere il figlio destro o la radice dell'albero;*/
 			if (Empty2(pr) == false)									/*Se il nodo da eliminare era il figlio destro del padre:*/
 				pr->right = next;									/*Imposto il figlio destro del padre all'indirizzo del figlio di del nodo da eliminare;*/
 																		/*Altrimenti, il nodo da eliminare non ha padre ed era per forza la radice dell'albero con un solo figlio;*/
@@ -608,8 +608,8 @@ tree2 Search_and_Destroy2(element2 e, tree2 t)
 	/*Se il nodo da eliminare ha 2 figli: occorre eliminarlo e sostituirlo con il nodo succ2()*/
 	if (Empty2(left2(t)) == false && Empty2(right2(t)) == false)
 	{
-		tree2 x = right2(t);						/*x è il puntatore al nodo succ2() di t;*/
-		tree2 pl_x = x;							/*Puntatore al padre di x, se x è la radice pl_x = x il succ2() di t;*/
+		tree2 x = right2(t);						/*x ï¿½ il puntatore al nodo succ2() di t;*/
+		tree2 pl_x = x;							/*Puntatore al padre di x, se x ï¿½ la radice pl_x = x il succ2() di t;*/
 		while (Empty2(left2(x)) == false)
 		{
 			pl_x = x;
@@ -668,7 +668,7 @@ void preOrder2(tree2 t)
 {
 	if (Empty2(t) == false)
 	{
-		printf("\t"); 
+		printf("\t");
 		PrintElement2(headTree2(t));
 		preOrder2(left2(t)); preOrder2(right2(t));
 	}
@@ -690,4 +690,101 @@ void postOrder2(tree2 t)
 		postOrder2(left2(t)); postOrder2(right2(t));
 		printf("\t"); PrintElement2(headTree2(t));
 	}
+}
+
+
+/*--------Funzioni Ste----------------------------------------------------------*/
+
+tree deleteBST(element e, tree t) {
+	tree l = t, next;
+	tree pl = NULL, pr = NULL;
+	while (isEmpty(t)==False && isEqual(root(t),e) == False) {
+		if (isLess(e,root(t)) == True) {
+			pl = t;
+			pr = emptyTree();
+			t = left(t);
+		}
+		else {
+			pl = emptyTree();
+			pr = t;
+			t = right(t);
+		}
+	}
+	//printf("\ntrovato %d", root(t));
+
+	if (isEmpty(t)==False) {
+		// Il nodo da eliminare ï¿½ una foglia
+		if (isEmpty(left(t))==True && isEmpty(right(t))==True) {
+
+			if (t == l){
+                            free_node(t);
+				return emptyTree();
+                        }
+                        free_node(t);
+			next = emptyTree();
+		}
+		else {
+			// Il nodo da eliminare ha un solo figlio
+			if (isEmpty(left(t))==True) {
+                            free_node(t);
+				if (t == l){
+                                    free_node(t);
+                                    return right(t);
+                                }
+                            free_node(t);
+				next = right(t);
+			}
+			else {
+				if (isEmpty(right(t))==True) {
+					if (t == l){
+                                            free_node(t);
+						return left(t);
+                                            }
+                                        free_node(t);
+					next = left(t);
+				}
+				else {
+					// Il nodo da eliminare ha due figli
+					pr = t;
+					pl = emptyTree();
+					next = right(t);
+					if (isEmpty(next)==False)
+						while (isEmpty(left(next))==False) {
+							pr = emptyTree();
+							pl = next;
+							next = left(next);
+						}
+					t->value = copy_element(root(next));
+					if (right(next) != NULL) {
+						next = right(next);
+					}
+					else
+						next = emptyTree();
+				}
+			}
+		}
+		if (isEmpty(pl) == False)
+			pl->left = next;
+		if (isEmpty(pr)==False)
+			pr->right = next;
+	}
+	return l;
+}
+
+int numerofoglie(tree t)
+{
+	if (isEmpty(t) == True)
+		return 0;
+
+	boolean empty_left = isEmpty(left(t));
+	boolean empty_right = isEmpty(right(t));
+
+	if (empty_left == True && empty_right == True)
+		return 1;
+	else if (empty_left == False && empty_right == False)
+		return  numerofoglie(left(t)) + numerofoglie(right(t));
+	else if (empty_left == True && empty_right == False)
+		return  numerofoglie(right(t));
+	else if (empty_left == False && empty_right == True)
+		return  numerofoglie(left(t));
 }
